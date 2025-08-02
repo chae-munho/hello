@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Boards</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 50px auto;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        a.button {
+            display: inline-block;
+            text-decoration: none;
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        a.button:hover {
+            background-color: #218838;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        table th {
+            background-color: #f1f1f1;
+            font-weight: bold;
+        }
+        table td a {
+            text-decoration: none;
+            color: #007bff;
+            margin-right: 10px;
+        }
+        table td a:hover {
+            text-decoration: underline;
+        }
+        form {
+            display: inline;
+        }
+        button {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+<h1>Board List</h1>
+<a class="button" th:href="@{/boards/new}">New Board</a>
+<table>
+    <tr><th>ID</th><th>Title</th><th>Actions</th></tr>
+    <tr th:each="board : ${boards}">
+        <td th:text="${board.id}"></td>
+        <td>
+            <a th:href="@{/boards/{id}(id=${board.id})}" th:text="${board.title}"></a>
+        </td>
+        <td>
+            <a th:href="@{/boards/{id}/edit(id=${board.id})}">Edit</a>
+            <form th:action="@{/boards/{id}/delete(id=${board.id})}" method="post" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
