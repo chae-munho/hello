@@ -43,6 +43,10 @@
             background-color: #f1f1f1;
             font-weight: bold;
         }
+        table td img {
+            max-width: 80px;
+            border-radius: 4px;
+        }
         table td a {
             text-decoration: none;
             color: #007bff;
@@ -71,11 +75,15 @@
 <h1>Board List</h1>
 <a class="button" th:href="@{/boards/new}">New Board</a>
 <table>
-    <tr><th>ID</th><th>Title</th><th>Actions</th></tr>
+    <tr><th>ID</th><th>Title</th><th>Image</th><th>Actions</th></tr>
     <tr th:each="board : ${boards}">
         <td th:text="${board.id}"></td>
         <td>
             <a th:href="@{/boards/{id}(id=${board.id})}" th:text="${board.title}"></a>
+        </td>
+        <!-- ✅ 이미지 썸네일 -->
+        <td>
+            <img th:if="${board.imageUrl}" th:src="${board.imageUrl}" alt="Image"/>
         </td>
         <td>
             <a th:href="@{/boards/{id}/edit(id=${board.id})}">Edit</a>

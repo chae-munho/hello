@@ -32,12 +32,11 @@ public class BoardService {
                 .orElse(null);
     }
 
-    // ✅ Create
-    public void save(BoardDto dto) {
-        boardRepository.save(boardMapper.toEntity(dto));
+    public BoardDto save(BoardDto dto) {
+        Board board = boardRepository.save(boardMapper.toEntity(dto));
+        return boardMapper.toDto(board);
     }
 
-    // ✅ Update
     public void update(Long id, BoardDto dto) {
         Board board = boardRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Board not found"));

@@ -34,6 +34,14 @@
             resize: vertical;
             height: 150px;
         }
+        input[type="file"] {
+            margin-bottom: 15px;
+        }
+        img {
+            max-width: 200px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
         button {
             width: 120px;
             padding: 10px;
@@ -51,9 +59,21 @@
 </head>
 <body>
 <h1 th:text="${board.id == null} ? 'New Board' : 'Edit Board'"></h1>
-<form th:action="${board.id == null} ? @{/boards} : @{/boards/{id}(id=${board.id})}" method="post">
+<form th:action="${board.id == null} ? @{/boards} : @{/boards/{id}(id=${board.id})}"
+      method="post" enctype="multipart/form-data">
     <input type="text" name="title" th:value="${board.title}" placeholder="Title"/>
     <textarea name="content" th:text="${board.content}" placeholder="Content"></textarea>
+
+    <!-- ✅ 이미지 업로드 -->
+    <label>Upload Image:</label>
+    <input type="file" name="image"/>
+
+    <!-- ✅ 기존 이미지 미리보기 -->
+    <div th:if="${board.imageUrl}">
+        <p>Current Image:</p>
+        <img th:src="${board.imageUrl}" alt="Current Image"/>
+    </div>
+
     <button type="submit">Save</button>
 </form>
 </body>
